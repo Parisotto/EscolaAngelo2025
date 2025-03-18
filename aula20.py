@@ -30,8 +30,15 @@ Fibonacci.reverse()
 print(Fibonacci)
 
 #  4. Na lista pi = [3, 1, 4, 1, 5, 9, 2, 6, 5]:
+pi = [3, 1, 4, 1, 5, 9, 2, 6, 5]
 #  a) Busque o elemento que está no índice 5 da lista.
+print(pi[5])
 #  b) Imprima o tamanho da lista
+print(len(pi))
 #  c) Imprima o valor máximo da lista
+print(max(pi))
 #  d) Imprima o valor mínimo da lista
+print(min(pi))
 #  e) Imprima apenas o resultado [4, 5]
+nova_lista = [4, 5]
+print(nova_lista)
