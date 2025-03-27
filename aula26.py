@@ -1,5 +1,4 @@
-#  Você está construindo um sistema de gerenciamento de contatos. 
-# Crie um programa que realize as seguintes tarefas:
+#  Você está construindo um sistema de gerenciamento de contatos. Crie um programa que realize as seguintes tarefas:
 
 #  a) Peça ao usuário para digitar seu nome completo.
 
