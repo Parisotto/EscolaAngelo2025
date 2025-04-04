@@ -64,3 +64,12 @@ print(estados["RJ"])
 estados["ES"] = "Espírito Santo"
 print()
 print(estados)
+
+del estados["SP"]
+print()
+print(estados)
+
+print()
+for enumerado, (i, v) in enumerate(estados.items(), start=1):
+  print(enumerado, i, v)
+
