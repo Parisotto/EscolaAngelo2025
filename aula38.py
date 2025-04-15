@@ -1,4 +1,4 @@
-# EXERCÍIO MATRIZ 3x3 (Tipo Jogo da Velha)
+# EXERCÍCIO MATRIZ 3x3 (Tipo Jogo da Velha)
 
 # Crie uma matriz 3x3 com cada elemento prenchido com valores sequenciais de 1 a 9
 # Imprima cada linha da matriz em um linha diferente.
