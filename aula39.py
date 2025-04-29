@@ -33,5 +33,3 @@ valores = [7, 2, 9, 3, 0, 1]
 print(valores)
 dobrar(valores)
 print(valores)
-
-
