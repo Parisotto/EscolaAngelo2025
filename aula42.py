@@ -11,6 +11,12 @@ def adicionar():
   else:
     msg.showwarning("Aviso", "Digite uma tarefa")
 
+def concluir():
+  item = listaBox.curselection()
+  if item:
+    listaBox.delete(item)
+    msg.showinfo("Concluída", f"Tarefa concluída")
+
 def interface():
   global tarefa, listaBox
 
@@ -26,7 +32,7 @@ def interface():
   listaBox = tk.Listbox(janela, width=70, height=10)
   listaBox.pack(padx=20, pady=10)
 
-  bt_concluir = tk.Button(janela, text="Cocluir")
+  bt_concluir = tk.Button(janela, text="Cocluir", command=concluir)
   bt_concluir.pack(pady=10)
 
 
