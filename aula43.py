@@ -4,6 +4,36 @@ from tkinter import messagebox as msg
 janela = None
 contatos = []
 
+def buscar():
+  nome = entry_nome.get().lower().strip()
+  celular = entry_celular.get().strip()
+  email = entry_email.get().lower().strip()
+
+  lista_contatos.select_clear(0, tk.END)
+
+  if nome or celular or email:
+    for i in range(0, lista_contatos.size()):
+      if nome and nome in lista_contatos.get(i).lower():
+        indice = i
+        break
+      elif celular and celular in lista_contatos.get(i):
+        indice = i
+        break
+      elif email and email in lista_contatos.get(i).lower():
+        indice = i
+        break
+      else:
+        indice = None
+
+    if lista_contatos.size() > 0 and indice != None:
+      lista_contatos.selection_set(indice)
+      lista_contatos.activate(indice)
+      lista_contatos.see(indice)
+    else:
+      msg.showinfo("Atenção", "Contato não encontrado")
+  else:
+    msg.showerror("ERRO!", "Digite um nome, celular ou email para fazer a busca")
+
 def incluir():
   nome = entry_nome.get()
   celular = entry_celular.get()
@@ -54,7 +84,7 @@ def interface():
   frame_botoes.pack(pady=10)
 
   bt_incluir = tk.Button(frame_botoes, text="Incluir", command=incluir)
-  bt_buscar = tk.Button(frame_botoes, text="Buscar")
+  bt_buscar = tk.Button(frame_botoes, text="Buscar", command=buscar)
 
   bt_incluir.grid(row=0, column=0, padx=10, pady=0)
   bt_buscar.grid(row=0, column=1, padx=0, pady=0)
