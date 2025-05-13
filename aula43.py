@@ -1,5 +1,6 @@
-import tkinter as tk
+import customtkinter as tk
 from tkinter import messagebox as msg
+from tkinter import Listbox
 
 janela = None
 contatos = []
@@ -62,39 +63,43 @@ def dados_lista_box():
 def interface():
   global entry_nome, entry_celular, entry_email, lista_contatos
 
-  quadro = tk.Frame(janela)
+  quadro = tk.CTkFrame(janela)
   quadro.pack(padx=20, pady=20, fill="both", expand=True)
 
-  label_nome = tk.Label(quadro, text="Nome:")
-  label_nome.pack(anchor='w')
-  entry_nome = tk.Entry(quadro, width=50)
-  entry_nome.pack()
+  label_nome = tk.CTkLabel(quadro, text="Nome:")
+  label_nome.pack(anchor='w', padx=20)
+  entry_nome = tk.CTkEntry(quadro, width=350, font=("Verdana", 12))
+  entry_nome.pack(padx=20)
 
-  label_celular = tk.Label(quadro, text="Celular:")
-  label_celular.pack(anchor='w')
-  entry_celular = tk.Entry(quadro, width=50)
+  label_celular = tk.CTkLabel(quadro, text="Celular:")
+  label_celular.pack(anchor='w', padx=20)
+  entry_celular = tk.CTkEntry(quadro, width=350)
   entry_celular.pack()
   
-  label_email = tk.Label(quadro, text="Email:")
-  label_email.pack(anchor='w')
-  entry_email = tk.Entry(quadro, width=50)
+  label_email = tk.CTkLabel(quadro, text="Email:")
+  label_email.pack(anchor='w', padx=20)
+  entry_email = tk.CTkEntry(quadro, width=350)
   entry_email.pack()
 
-  frame_botoes = tk.Frame(quadro)
+  frame_botoes = tk.CTkFrame(quadro)
   frame_botoes.pack(pady=10)
 
-  bt_incluir = tk.Button(frame_botoes, text="Incluir", command=incluir)
-  bt_buscar = tk.Button(frame_botoes, text="Buscar", command=buscar)
+  bt_incluir = tk.CTkButton(frame_botoes, text="Incluir", command=incluir)
+  bt_buscar = tk.CTkButton(frame_botoes, text="Buscar", command=buscar)
+  bt_editar = tk.CTkButton(frame_botoes, text="Editar")
+  bt_excluir = tk.CTkButton(frame_botoes, text="Excluir")
 
   bt_incluir.grid(row=0, column=0, padx=10, pady=0)
-  bt_buscar.grid(row=0, column=1, padx=0, pady=0)
+  bt_buscar.grid(row=0, column=1, padx=10, pady=10)
+  bt_editar.grid(row=1, column=0, padx=10, pady=10)
+  bt_excluir.grid(row=1, column=1, padx=10, pady=10)
 
-  lista_contatos = tk.Listbox(quadro, width=50)
+  lista_contatos = Listbox(quadro, width=50, font=("Verdana", 12), bd=0)
   lista_contatos.pack(padx=10, pady=10)
   
 def main():
   global janela
-  janela = tk.Tk()
+  janela = tk.CTk()
   janela.title("Agenda de Contatos")
   interface()
   janela.mainloop()
