@@ -1,4 +1,4 @@
-import customtkinter as tk
+import customtkinter as tk # pip install customtkinter
 from tkinter import messagebox as msg
 from tkinter import Listbox
 
