@@ -4,6 +4,24 @@ from tkinter import Listbox
 
 janela = None
 contatos = []
+indice_selecionado = None
+
+def selecionar_contato(event):
+  global indice_selecionado
+  try:
+    indice_selecionado = lista_contatos.curselection()[0]
+  except:
+    print("Nada selecionado")
+
+def excluir():
+  global indice_selecionado
+  if indice_selecionado is not None:
+    del contatos[indice_selecionado]
+    dados_lista_box()
+    indice_selecionado = None
+    
+  else:
+    print("Sem indice selecionado")
 
 def buscar():
   nome = entry_nome.get().lower().strip()
@@ -87,7 +105,7 @@ def interface():
   bt_incluir = tk.CTkButton(frame_botoes, text="Incluir", command=incluir)
   bt_buscar = tk.CTkButton(frame_botoes, text="Buscar", command=buscar)
   bt_editar = tk.CTkButton(frame_botoes, text="Editar")
-  bt_excluir = tk.CTkButton(frame_botoes, text="Excluir")
+  bt_excluir = tk.CTkButton(frame_botoes, text="Excluir", command=excluir)
 
   bt_incluir.grid(row=0, column=0, padx=10, pady=0)
   bt_buscar.grid(row=0, column=1, padx=10, pady=10)
@@ -96,6 +114,7 @@ def interface():
 
   lista_contatos = Listbox(quadro, width=50, font=("Verdana", 12), bd=0)
   lista_contatos.pack(padx=10, pady=10)
+  lista_contatos.bind('<<ListboxSelect>>', selecionar_contato)
   
 def main():
   global janela
