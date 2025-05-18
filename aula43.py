@@ -6,6 +6,24 @@ janela = None
 contatos = []
 indice_selecionado = None
 
+def carga():
+  global contatos
+  contatos = arquivo('r')
+  dados_lista_box()
+
+def arquivo(op = 'r', contato = ''):
+  arquivo = 'contatos.txt'
+  try:
+    with open(arquivo, op) as arq:
+      if op == 'r':
+        return arq.readlines()
+      elif op == 'a':
+        arq.write(contato)
+      elif op =='w':
+        arq.writelines(contato)
+  except:
+    return []
+
 def selecionar_contato(event):
   global indice_selecionado
   try:
@@ -13,13 +31,42 @@ def selecionar_contato(event):
   except:
     print("Nada selecionado")
 
+  if indice_selecionado is not None:
+    contato = contatos[indice_selecionado].split(" - ")
+    entry_nome.delete(0, tk.END)
+    entry_nome.insert(0, contato[0])
+    entry_celular.delete(0, tk.END)
+    entry_celular.insert(0, contato[1])
+    entry_email.delete(0, tk.END)
+    entry_email.insert(0, contato[2].strip())
+
+def editar():
+  global indice_selecionado
+  if indice_selecionado is not None:
+    nome = entry_nome.get()
+    celular = entry_celular.get()
+    email = entry_email.get()
+
+    if nome and celular and email:
+      contatos[indice_selecionado] = f"{nome} - {celular} - {email}\n"
+      arquivo('w', contatos)
+      dados_lista_box()
+
+      entry_nome.delete(0, tk.END)
+      entry_celular.delete(0, tk.END)
+      entry_email.delete(0, tk.END)
+      entry_nome.focus_set()
+
 def excluir():
   global indice_selecionado
   if indice_selecionado is not None:
     del contatos[indice_selecionado]
+    arquivo('w', contatos)
     dados_lista_box()
     indice_selecionado = None
-    
+    entry_nome.delete(0, tk.END)
+    entry_celular.delete(0, tk.END)
+    entry_email.delete(0, tk.END)
   else:
     print("Sem indice selecionado")
 
@@ -59,8 +106,9 @@ def incluir():
   email = entry_email.get()
 
   if nome and celular and email:
-    contato = f"{nome} - {celular} - {email}"
+    contato = f"{nome} - {celular} - {email}\n"
     contatos.append(contato)
+    arquivo('a', contato)
 
     entry_nome.delete(0, tk.END)
     entry_celular.delete(0, tk.END)
@@ -104,7 +152,7 @@ def interface():
 
   bt_incluir = tk.CTkButton(frame_botoes, text="Incluir", command=incluir)
   bt_buscar = tk.CTkButton(frame_botoes, text="Buscar", command=buscar)
-  bt_editar = tk.CTkButton(frame_botoes, text="Editar")
+  bt_editar = tk.CTkButton(frame_botoes, text="Editar", command=editar)
   bt_excluir = tk.CTkButton(frame_botoes, text="Excluir", command=excluir)
 
   bt_incluir.grid(row=0, column=0, padx=10, pady=0)
@@ -121,6 +169,7 @@ def main():
   janela = tk.CTk()
   janela.title("Agenda de Contatos")
   interface()
+  carga()
   janela.mainloop()
 
 main()
