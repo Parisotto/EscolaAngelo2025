@@ -1,6 +1,6 @@
 import customtkinter as tk # pip install customtkinter
 from tkinter import messagebox as msg
-from tkinter import Listbox
+from tkinter import Listbox, Scrollbar
 
 janela = None
 contatos = []
@@ -95,6 +95,7 @@ def buscar():
       lista_contatos.selection_set(indice)
       lista_contatos.activate(indice)
       lista_contatos.see(indice)
+      lista_contatos.event_generate('<<ListboxSelect>>')
     else:
       msg.showinfo("Atenção", "Contato não encontrado")
   else:
@@ -160,9 +161,22 @@ def interface():
   bt_editar.grid(row=1, column=0, padx=10, pady=10)
   bt_excluir.grid(row=1, column=1, padx=10, pady=10)
 
-  lista_contatos = Listbox(quadro, width=50, font=("Verdana", 12), bd=0)
-  lista_contatos.pack(padx=10, pady=10)
+  # ListaBox com Scroll
+  lista_contatos_frame = tk.CTkFrame(quadro)
+  lista_contatos_frame.pack(padx=10, pady=10, expand=False)
+
+  scrollbar = Scrollbar(lista_contatos_frame)
+  scrollbar.pack(side="right", fill="y")
+
+  lista_contatos = Listbox(
+      lista_contatos_frame, width=50, 
+      font=("Verdana", 12), bd=0,
+      yscrollcommand=scrollbar.set
+    )
+  lista_contatos.pack(side="left", fill="both")
   lista_contatos.bind('<<ListboxSelect>>', selecionar_contato)
+  
+  scrollbar.config(command=lista_contatos.yview)
   
 def main():
   global janela
